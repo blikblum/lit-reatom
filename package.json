@@ -1,0 +1,31 @@
+{
+  "name": "lit-reatom",
+  "version": "0.1.0",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "packageManager": "yarn@4.1.0",
+  "peerDependencies": {
+    "@reatom/core": "^3.7.0",
+    "lit": "^2.8.0"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^3.2.0",
+    "@reatom/core": "^3.7.0",
+    "jsdom": "^22.1.0",
+    "lit": "^2.8.0",
+    "typescript": "^5.3.3",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.1"
+  },
+  "files": [
+    "index.js",
+    "withStore.js"
+  ],
+  "scripts": {
+    "demo:dev": "vite",
+    "demo:build": "vite build",
+    "test": "vitest"
+  }
+}
