@@ -2,8 +2,12 @@
   "name": "lit-reatom",
   "version": "0.1.0",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "exports": {
-    ".": "./index.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./index.js"
+    }
   },
   "packageManager": "yarn@4.1.0",
   "peerDependencies": {
@@ -26,6 +30,7 @@
   "scripts": {
     "demo:dev": "vite",
     "demo:build": "vite build",
-    "test": "vitest"
+    "test": "vitest",
+    "types": "tsc --project tsconfig.types.json"
   }
 }
