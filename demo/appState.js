@@ -1,3 +1,5 @@
-import { getDefaultCtx } from 'lit-reatom'
+import { createCtx } from '@reatom/core'
+import { setDefaultCtx } from 'lit-reatom'
 
-export const appContext = getDefaultCtx()
+export const appContext = createCtx()
+setDefaultCtx(appContext)
