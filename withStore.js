@@ -2,36 +2,25 @@ const storeDefsKey = Symbol('storeDefsKey')
 const storeUnsubscribesKey = Symbol('storeUnsubscribesKey')
 
 /**
- * @import { Ctx } from '@reatom/core'
+ * @import {Atom} from '@reatom/core'
  */
 
 /**
- * @type {Ctx | undefined}
+ * @typedef StoreDef
+ * @property {Atom} store
+ * @property {string} name
  */
-let defaultCtx
 
 /**
- * @returns {Ctx | undefined}
+ *
+ * @param {HTMLElement} element
+ * @param {StoreDef[]} storeDefs
+ * @returns
  */
-export function getDefaultCtx() {
-  return defaultCtx
-}
-
-/**
- * @param {Ctx} ctx
- */
-export function setDefaultCtx(ctx) {
-  defaultCtx = ctx
-}
 
 function subscribeStores(element, storeDefs) {
-  if (!defaultCtx) {
-    console.warn('lit-reatom: setDefaultCtx must be called before using withStore')
-    return
-  }
-
   return storeDefs.map(({ store, name }) => {
-    return defaultCtx.subscribe(store, (value) => {
+    return store.subscribe((value) => {
       element[name] = value
     })
   })
