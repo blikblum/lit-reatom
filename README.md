@@ -19,14 +19,16 @@ or
 yarn add lit @reatom/core lit-reatom
 ```
 
+> Requires Reatom v1000 or higher. For Reatom v3 use lit-reatom v0.2.x
+
 ### Usage
 
 `withStore` is mixin / class decorator that extends LitElement components allowing to define store in property definition
 
 ```javascript
-import { atom, createCtx } from '@reatom/core'
+import { atom } from '@reatom/core'
 import { LitElement, html } from 'lit'
-import { withStore, getDefaultCtx, setDefaultCtx } from 'lit-reatom'
+import { withStore } from 'lit-reatom'
 
 const propAtom = atom('world')
 
@@ -42,15 +44,8 @@ class MyComponent extends withStore(LitElement) {
   }
 }
 
-// elsewhere in the app
-const ctx = getDefaultCtx()
-
 // component will be rendered with 'Hello Jon'
-propAtom(ctx, 'Jon')
-
-// or set default context for another one
-const appCtx = createCtx()
-setDefaultCtx(appCtx)
+propAtom.set('Jon')
 ```
 
 optionally use decorator syntax
@@ -60,14 +55,45 @@ optionally use decorator syntax
 class MyComponent extends LitElement {}
 ```
 
+#### With TypeScript
+
+Same as above, just declare the PropertyDeclaration interface once so store property is recognized
+
+```typescript
+// in a setup file or at the top of your component file
+import { Atom } from '@reatom/core'
+
+declare module 'lit' {
+  interface PropertyDeclaration {
+    store?: Atom
+  }
+}
+
+// then use as usual, with static properties like vanilla js example or property decorator
+import { atom } from '@reatom/core'
+import { LitElement, html } from 'lit'
+import { property } from 'lit/decorators.js'
+import { withStore } from 'lit-reatom'
+
+const propAtom = atom('world')
+
+class MyComponent extends withStore(LitElement) {
+  @property({ type: String, store: propAtom })
+  myProp: string
+
+  render() {
+    return html` <div>Hello ${this.myProp}</div> `
+  }
+}
+```
+
 ### Remarks
 
 - Keeps the basic structure of how Lit component is written: declare a property and use it in render.
-  - Its easy to create unit tests or demo (like storybook): just set the property / attribute as any other component. See testing example [here](demo/message-banner.test.js)
+  - Its easy to create unit tests or demo (like storybook): just set the property / attribute as any other component. See testing example [here](demo/message-banner.test.ts)
   - Its easy to add (or remove) integration with app state (reatom)
-- It will not work with Lit `property` decorator whe using typescript
 
 ### License
 
 MIT
-Copyright © 2024 Luiz Américo Pereira Câmara
+Copyright © 2024 - 2025 Luiz Américo Pereira Câmara

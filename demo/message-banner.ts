@@ -1,11 +1,13 @@
-import { LitElement, css, html } from 'lit'
+import { LitElement, PropertyDeclarations, css, html } from 'lit'
 import { withStore } from 'lit-reatom'
 import { messageAtom } from './message.js'
 
 export class MessageBanner extends withStore(LitElement) {
-  static properties = {
+  static properties: PropertyDeclarations = {
     value: { type: String, store: messageAtom },
   }
+
+  declare value: string
 
   static styles = css`
     h1 {
